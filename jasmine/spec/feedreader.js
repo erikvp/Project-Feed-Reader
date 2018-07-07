@@ -73,7 +73,7 @@ $(function () {
 
             console.log('Body class=', document.body.className);
 
-            let menuHidden = document.body.className === 'menu-hidden' ? true : false;
+            let menuHidden = document.body.classList.contains('menu-hidden');
             expect(menuHidden).toBe(true);
 
         });
@@ -83,22 +83,28 @@ $(function () {
          * clicked and does it hide when clicked again.
          */
 
+        it("icon 1st click shows menu.", function () {
 
-        it("icon 1st click shows menu, 2nd click hides menu.", function () {
-            let menuHidden = undefined;
-            let menuDisplayed = undefined;
+            // Click Menu Icon and confirm menu is displayed
+            $('.menu-icon-link').trigger("click");
+            console.log(`After 1st Click: ${document.body.className}`);
+            // Body should have no classes when menu is displayed
+            // Verify class='menu-hidden' is removed
+            let menuDisplayed = !document.body.classList.contains('menu-hidden');
+            console.log(`menuDisplayed: ${menuDisplayed}`);
+            expect(menuDisplayed).toBe(true);
 
-            spyEvent = spyOnEvent('.menu-icon-link', 'click');
-            console.log(spyEvent);
-            console.log(`Before click: ${document.body.className}`);
+        });
+
+        it("icon 2nd click hides menu", function () {
+
+            // Click Menu Icon and confirm menu is hidden
             $('.menu-icon-link').trigger("click");
-            menuDisplayed = true;
-            console.log(`After Click: ${document.body.className}`);
-            $('.menu-icon-link').trigger("click");
-            menuHidden = true;
             console.log(`After 2nd Click: ${document.body.className}`);
-            expect(menuHidden && menuDisplayed).toBe(true);
-
+            // Body should have class='menu-hidden' when menu is hidden
+            let menuHidden = document.body.classList.contains('menu-hidden');
+            console.log(`menuHidden: ${menuHidden}`);
+            expect(menuHidden).toBe(true);
         });
 
     }); // describe('the menu')
@@ -132,11 +138,10 @@ $(function () {
                     feedCount++;
                 }
             }
-            // console.log(`Feed Count: ${feedCount}`);
+            console.log(`Feed Count: ${feedCount}`);
             expect(feedCount).toBeGreaterThan(1);
         });
     });
-
 
 
     /* TODO: Write a new test suite named "New Feed Selection" */
@@ -148,9 +153,10 @@ $(function () {
 
         afterEach(function (done) {
 
-            console.log('beforeEach');
+            console.log('afterEach');
             i < 3 ? i++ : i = 0;
-            $(links[i]).trigger("click"); // call CSS Tricks
+            // Click next link CSS-Tricks, HTML5 Rocks, Linear Digressions
+            $(links[i]).trigger("click");
 
             setTimeout(function () {
                 console.log('timeout 2s.');
@@ -213,8 +219,6 @@ $(function () {
             $(links[0]).trigger("click"); // call Udacity Blog
             expect(articleURL).toContain('linear-digressions');
         });
-
-
 
     }); // describle ('New Feed Selection)
 
