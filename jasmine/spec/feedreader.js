@@ -60,29 +60,16 @@ $(function () {
     });
 
     /* 'The menu' is a suite of tests for the menu navigation
-     *
+     * Menu is accessed via the hamburger icon in the upper left corner
      */
     describe('The menu', function () {
 
-
-        /* Verify menu element is hidden by default.
-        it('element is hidden by default', function () {
-
-            console.log('Body class=', document.body.className);
-            // Check if body contains class='menu-hidden'
-            let menuHidden = document.body.classList.contains('menu-hidden');
-            expect(menuHidden).toBe(true);
-
-        });
-        /* TODO: Write a test that ensures the menu changes
-         * visibility when the menu icon is clicked. This test
-         * should have two expectations: does the menu display when
-         * clicked and does it hide when clicked again.
+        /* Verify menu changes visibility when the menu icon is clicked.
+         * On the first click, the menu is displayed
          */
-
         it("icon 1st click shows menu.", function () {
 
-            // Click Menu Icon and confirm menu is displayed
+            // Click the menu icon to activate
             $('.menu-icon-link').trigger("click");
             console.log(`After 1st Click: ${document.body.className}`);
             // Body should have no classes when menu is displayed
@@ -93,6 +80,10 @@ $(function () {
 
         });
 
+        /* Verify menu changes visibility when the menu icon is clicked.
+         * On the second click, the menu is hidden
+         * This test will click twice and check that menu is hidden after the 2nd click
+         */
         it("icon 2nd click hides menu", function () {
 
             // Click Menu Icon and confirm menu is hidden
@@ -108,6 +99,8 @@ $(function () {
 
 
     /* TODO: Write a new test suite named "Initial Entries" */
+    /* 'Initial Entries' is a test suite for checking the article feed initiall loaded
+     */
     describe('Initial Entries', function () {
         // One second timeout called before test function
         beforeEach(function (done) {
@@ -116,11 +109,9 @@ $(function () {
             }, 1000);
         });
 
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
+
+        /* Verify that the loadFeed function loads at least one entry within the
+         * feed container.
          */
         it('has one or more elements within feed container.', function () {
             let parent = document.querySelector('.feed');
@@ -142,7 +133,9 @@ $(function () {
     });
 
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
+    /* 'New Feed Selection' is a test suite for checking the article feeds for each 
+     * link contained in the menu.  These include: (Udacity Blog, CSS-Tricks, HTML5 Rocks, Linear Digressions)
+     */
     describe('New Feed Selection', function () {
         let links = document.querySelectorAll('ul li a'); // Target first link in feed
         let firstArticle;
@@ -167,11 +160,11 @@ $(function () {
         });
 
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
 
+
+        /* Verify the content changes when loadFeed function loads a new feed
+         *
+         */
         it('loads Udacity Blog.', function () {
             // These variables are defined here since this runs prior to afterEach
             let firstArticle = document.querySelector('.feed a');
