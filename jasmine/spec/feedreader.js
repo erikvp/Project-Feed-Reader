@@ -73,13 +73,11 @@ $(function () {
 
             // DISPLAY MENU: This is the first click on the menu icon.
             $('.menu-icon-link').trigger("click");
-            console.log(`After 1st Click: ${document.body.className}`);
             // Body should not contain class 'menu-hidden' since menu is displayed
             expect($('body').hasClass('menu-hidden')).toBe(false);
 
             // HIDE MENU: This is the second click on the menu icon.
             $('.menu-icon-link').trigger("click");
-            console.log(`After 2nd Click: ${document.body.className}`);
             // Body should have class 'menu-hidden' since menu is hidden.
             expect($('body').hasClass('menu-hidden')).toBe(true);
 
@@ -107,7 +105,6 @@ $(function () {
             // Target parent: <div class="feed"> and all children: <article class="entry">
             let entries = document.querySelectorAll('.feed .entry').length;
 
-            console.log('Entries:', entries);
             expect(entries).toBeGreaterThan(0)
         });
     });
@@ -143,8 +140,6 @@ $(function () {
          * newFeed(loadFeed(1): CSS-Tricks)
          */
         it('new articles loaded.', function () {
-            console.log(`oldFeed: ${oldFeed}`);
-            console.log(`newFeed: ${newFeed}`);
             expect(oldFeed).not.toMatch(newFeed);
         });
 
