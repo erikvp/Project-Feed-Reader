@@ -26,15 +26,14 @@ $(function () {
             expect(allFeeds.length).not.toBe(0);
         });
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
+        /* Loop through each feed in the allFeeds object.
+         * Check each feed url and confirm it is not 'undefined'.
+         * Verify there is a url.
+         * Note: Assumes a minimum valid url is four characters long(e.g.x.io)
          */
         it('URL(s) are defined', function () {
             let urlDefined = true;
-            //  Check each feed url and confirm it is not 'undefined' and verify there is a url
-            //  Note:  Assumes a minimum valid url is four characters long (e.g. x.io)
+
             for (let i = 0; i < allFeeds.length; i++) {
                 if (allFeeds[i].url === undefined || allFeeds[i].url.length < 4) {
                     urlDefined = false;
@@ -43,10 +42,9 @@ $(function () {
             expect(urlDefined).toBe(true);
         });
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
+        /* Loop through each feed in the allFeeds object and verify allFeeds[i].name
+         * is not 'undefined'
+         * has a length of at least 1 (assumes length=1 is the minimum aceptable length)
          */
         it('name(s) are defined', function () {
             let nameDefined = true;
@@ -61,15 +59,13 @@ $(function () {
         });
     });
 
-
-    /* TODO: Write a new test suite named "The menu" */
+    /* 'The menu' is a suite of tests for the menu navigation
+     *
+     */
     describe('The menu', function () {
 
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
+
+        /* Verify menu element is hidden by default.
         it('element is hidden by default', function () {
 
             console.log('Body class=', document.body.className);
