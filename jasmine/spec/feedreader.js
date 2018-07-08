@@ -88,8 +88,8 @@ $(function () {
     }); // describe('the menu')
 
 
-    /* TODO: Write a new test suite named "Initial Entries" */
-    /* 'Initial Entries' is a test suite for checking the article feed initiall loaded
+    /* 'Initial Entries' is a test suite for checking the initial article
+     * feed content.
      */
     describe('Initial Entries', function () {
         // One second timeout called before test function
@@ -104,21 +104,11 @@ $(function () {
          * feed container.
          */
         it('has one or more elements within feed container.', function () {
-            let parent = document.querySelector('.feed');
-            let children = parent.childNodes.length;
-            let feedCount = 0; // number of articles in feed container
+            // Target parent (.feed) and all children (.entry)
+            let entries = document.querySelectorAll('.feed .entry').length;
 
-            // console.log(children);
-
-            for (let i = 0; i < children; i++) {
-                // console.log(parent.childNodes[i].className);
-                // Every element containing the class='entry-link' counts as 1.
-                if (parent.childNodes[i].className === 'entry-link') {
-                    feedCount++;
-                }
-            }
-            console.log(`Feed Count: ${feedCount}`);
-            expect(feedCount).toBeGreaterThan(1);
+            console.log('Entries:', entries);
+            expect(entries).toBeGreaterThan(0)
         });
     });
 
