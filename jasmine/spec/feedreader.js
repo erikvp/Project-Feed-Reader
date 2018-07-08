@@ -85,21 +85,6 @@ $(function () {
 
         });
 
-        /* Verify menu changes visibility when the menu icon is clicked.
-         * On the second click, the menu is hidden
-         * This test will click twice and check that menu is hidden after the 2nd click
-         */
-        // it("icon 2nd click hides menu", function () {
-
-        //     // Click Menu Icon and confirm menu is hidden
-        //     $('.menu-icon-link').trigger("click");
-        //     console.log(`After 2nd Click: ${document.body.className}`);
-        //     // Body should have class='menu-hidden' when menu is hidden
-        //     let menuHidden = document.body.classList.contains('menu-hidden');
-        //     console.log(`menuHidden: ${menuHidden}`);
-        //     expect(menuHidden).toBe(true);
-        // });
-
     }); // describe('the menu')
 
 
