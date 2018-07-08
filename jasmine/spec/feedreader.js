@@ -4,9 +4,9 @@
  * all of the tests that will be run against your application.
  */
 
-/* We're placing all of our tests within the $() function,
- * since some of these tests may require DOM elements. We want
- * to ensure they don't run until the DOM is ready.
+/* All tests are within the $() function, since some of these tests 
+ * may require DOM elements. This insures tests are not executed unit
+ * the DOM is ready.
  */
 $(function () {
     /* This is our first test suite - a test suite just contains
@@ -65,18 +65,23 @@ $(function () {
     describe('The menu', function () {
 
         /* Verify menu changes visibility when the menu icon is clicked.
-         * On the first click, the menu is displayed
+         * The body class='menu-hidden' will toggle for each case.
+         * First Click: Menu is displayed. <body class>
+         * Second Click: Menu is hidden. <body class="menu-hidden">
          */
-        it("icon 1st click shows menu.", function () {
+        it("icon 1st click shows menu, 2nd click hides menu.", function () {
 
-            // Click the menu icon to activate
+            // DISPLAY MENU: This is the first click on the menu icon.
             $('.menu-icon-link').trigger("click");
             console.log(`After 1st Click: ${document.body.className}`);
-            // Body should have no classes when menu is displayed
-            // Verify class='menu-hidden' is removed
-            let menuDisplayed = !document.body.classList.contains('menu-hidden');
-            console.log(`menuDisplayed: ${menuDisplayed}`);
-            expect(menuDisplayed).toBe(true);
+            // Body should not contain class 'menu-hidden' since menu is displayed
+            expect($('body').hasClass('menu-hidden')).toBe(false);
+
+            // HIDE MENU: This is the second click on the menu icon.
+            $('.menu-icon-link').trigger("click");
+            console.log(`After 2nd Click: ${document.body.className}`);
+            // Body should have class 'menu-hidden' since menu is hidden.
+            expect($('body').hasClass('menu-hidden')).toBe(true);
 
         });
 
@@ -84,16 +89,16 @@ $(function () {
          * On the second click, the menu is hidden
          * This test will click twice and check that menu is hidden after the 2nd click
          */
-        it("icon 2nd click hides menu", function () {
+        // it("icon 2nd click hides menu", function () {
 
-            // Click Menu Icon and confirm menu is hidden
-            $('.menu-icon-link').trigger("click");
-            console.log(`After 2nd Click: ${document.body.className}`);
-            // Body should have class='menu-hidden' when menu is hidden
-            let menuHidden = document.body.classList.contains('menu-hidden');
-            console.log(`menuHidden: ${menuHidden}`);
-            expect(menuHidden).toBe(true);
-        });
+        //     // Click Menu Icon and confirm menu is hidden
+        //     $('.menu-icon-link').trigger("click");
+        //     console.log(`After 2nd Click: ${document.body.className}`);
+        //     // Body should have class='menu-hidden' when menu is hidden
+        //     let menuHidden = document.body.classList.contains('menu-hidden');
+        //     console.log(`menuHidden: ${menuHidden}`);
+        //     expect(menuHidden).toBe(true);
+        // });
 
     }); // describe('the menu')
 
