@@ -104,7 +104,7 @@ $(function () {
          * feed container.
          */
         it('has one or more elements within feed container.', function () {
-            // Target parent (.feed) and all children (.entry)
+            // Target parent: <div class="feed"> and all children: <article class="entry">
             let entries = document.querySelectorAll('.feed .entry').length;
 
             console.log('Entries:', entries);
@@ -113,74 +113,119 @@ $(function () {
     });
 
 
-    /* 'New Feed Selection' is a test suite for checking the article feeds for each 
-     * link contained in the menu.  These include: (Udacity Blog, CSS-Tricks, HTML5 Rocks, Linear Digressions)
+    /* 'New Feed Selection' is a test suite for checking the functionality of
+     * loadFeed()
      */
-    describe('New Feed Selection', function () {
-        let links = document.querySelectorAll('ul li a'); // Target first link in feed
-        let firstArticle;
-        let articleURL;
-        let i = 0;
+    fdescribe('New Feed Selection', function () {
+        let oldFeed;
+        let newFeed;
 
-        afterEach(function (done) {
+        beforeEach(function (done) {
 
-            console.log('afterEach');
-            // Increment i to 3, then loop back to 0
-            i < 3 ? i++ : i = 0;
-            // Click next link [i=1]CSS-Tricks, [i=2]HTML5 Rocks, [i=3]Linear Digressions, [i=0] Udacity Blog
-            $(links[i]).trigger("click"); // Clicks on selected link
+            loadFeed(0, function () {
+                oldFeed = $('.feed').html();
+                // console.log(`oldFeed: ${oldFeed}`);
 
-            // Allow 2s. for links to load, then get firstArticle and URL
-            setTimeout(function () {
-                console.log('timeout 2s.');
-                firstArticle = document.querySelector('.feed a');
-                articleURL = firstArticle.href;
-                done();
-            }, 2000);
+                loadFeed(1, function () {
+                    newFeed = $('.feed').html();
+                    // console.log(`newFeed: ${newFeed}`);
+                    done(); // feed variables loaded.  Ready for testing
+                    console.log('done');
+
+
+                }); // loadFeed(1)
+                console.log('outside loadFeed(1) - inside loadFeed(0)');
+            }); // loadFeed(0)
+            console.log('outside loadFeed(0)');
+
+        }); // beforeEach()
+
+        console.log('outside beforeEach');
+
+        it('new articles loaded.', function () {
+            console.log('inside it()');
+            console.log(`oldFeed: ${oldFeed}`);
+            console.log(`newFeed: ${newFeed}`);
+            expect(oldFeed).not.toMatch(newFeed);
         });
 
 
 
 
-        /* Verify the content changes when loadFeed function loads a new feed
-         *
-         */
-        it('loads Udacity Blog.', function () {
-            // These variables are defined here since this runs prior to afterEach
-            let firstArticle = document.querySelector('.feed a');
-            let articleURL = firstArticle.href;
-
-            console.log('Select Udacity Blog');
-            console.log(firstArticle);
-            console.log(articleURL);
-            expect(articleURL).toContain('blog');
-        });
 
 
-        it('loads CSS Tricks.', function () {
-
-            console.log('Select CSS Tricks');
-            console.log(firstArticle);
-            console.log(articleURL);
-            expect(articleURL).toContain('css-tricks');
-        });
-
-        it('loads HTML5 Rocks', function () {
-
-            console.log('HTML5 Rocks');
-            console.log(firstArticle);
-            console.log(articleURL);
-            expect(articleURL).toContain('html5rocks');
-        });
-
-        it('loads Linear Digressions', function () {
-
-            console.log('Linear Digressions');
-            console.log(firstArticle);
-            console.log(articleURL);
-            expect(articleURL).toContain('linear-digressions');
-        });
 
     }); // describle ('New Feed Selection)
 
 }());
+
+
+
+
+
+
+
+
+// let links = document.querySelectorAll('ul li a'); // Target first link in feed
+// let firstArticle;
+// let articleURL;
+// let i = 0;
+
+// afterEach(function (done) {
+
+//     console.log('afterEach');
+//     // Increment i to 3, then loop back to 0
+//     i < 3 ? i++ : i = 0;
+//     // Click next link [i=1]CSS-Tricks, [i=2]HTML5 Rocks, [i=3]Linear Digressions, [i=0] Udacity Blog
+//     $(links[i]).trigger("click"); // Clicks on selected link
+
+//     // Allow 2s. for links to load, then get firstArticle and URL
+//     setTimeout(function () {
+//         console.log('timeout 2s.');
+//         firstArticle = document.querySelector('.feed a');
+//         articleURL = firstArticle.href;
+//         done();
+//     }, 2000);
+// });
+
+
+
+
+// /* Verify the content changes when loadFeed function loads a new feed
+//  *
+//  */
+// it('loads Udacity Blog.', function () {
+//     // These variables are defined here since this runs prior to afterEach
+//     let firstArticle = document.querySelector('.feed a');
+//     let articleURL = firstArticle.href;
+
+//     console.log('Select Udacity Blog');
+//     console.log(firstArticle);
+//     console.log(articleURL);
+//     expect(articleURL).toContain('blog');
+// });
+
+
+// it('loads CSS Tricks.', function () {
+
+//     console.log('Select CSS Tricks');
+//     console.log(firstArticle);
+//     console.log(articleURL);
+//     expect(articleURL).toContain('css-tricks');
+// });
+
+// it('loads HTML5 Rocks', function () {
+
+//     console.log('HTML5 Rocks');
+//     console.log(firstArticle);
+//     console.log(articleURL);
+//     expect(articleURL).toContain('html5rocks');
+// });
+
+// it('loads Linear Digressions', function () {
+
+//     console.log('Linear Digressions');
+//     console.log(firstArticle);
+//     console.log(articleURL);
+//     expect(articleURL).toContain('linear-digressions');
+// });
