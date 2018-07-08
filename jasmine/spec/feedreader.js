@@ -33,7 +33,8 @@ $(function () {
          */
         it('URL(s) are defined', function () {
             let urlDefined = true;
-
+            //  Check each feed url and confirm it is not 'undefined' and verify there is a url
+            //  Note:  Assumes a minimum valid url is four characters long (e.g. x.io)
             for (let i = 0; i < allFeeds.length; i++) {
                 if (allFeeds[i].url === undefined || allFeeds[i].url.length < 4) {
                     urlDefined = false;
@@ -49,7 +50,7 @@ $(function () {
          */
         it('name(s) are defined', function () {
             let nameDefined = true;
-
+            // Check each feed name and confirm it is not 'undefined' and is at least one char in length
             for (let i = 0; i < allFeeds.length; i++) {
                 if (allFeeds[i].name === undefined || allFeeds[i].name.length < 1) {
                     nameDefined = false;
@@ -72,7 +73,7 @@ $(function () {
         it('element is hidden by default', function () {
 
             console.log('Body class=', document.body.className);
-
+            // Check if body contains class='menu-hidden'
             let menuHidden = document.body.classList.contains('menu-hidden');
             expect(menuHidden).toBe(true);
 
@@ -112,7 +113,7 @@ $(function () {
 
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function () {
-
+        // One second timeout called before test function
         beforeEach(function (done) {
             setTimeout(function () {
                 done();
@@ -128,12 +129,13 @@ $(function () {
         it('has one or more elements within feed container.', function () {
             let parent = document.querySelector('.feed');
             let children = parent.childNodes.length;
-            let feedCount = 0;
+            let feedCount = 0; // number of articles in feed container
 
             // console.log(children);
 
             for (let i = 0; i < children; i++) {
                 // console.log(parent.childNodes[i].className);
+                // Every element containing the class='entry-link' counts as 1.
                 if (parent.childNodes[i].className === 'entry-link') {
                     feedCount++;
                 }
@@ -146,7 +148,7 @@ $(function () {
 
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function () {
-        let links = document.querySelectorAll('ul li a');
+        let links = document.querySelectorAll('ul li a'); // Target first link in feed
         let firstArticle;
         let articleURL;
         let i = 0;
@@ -154,15 +156,16 @@ $(function () {
         afterEach(function (done) {
 
             console.log('afterEach');
+            // Increment i to 3, then loop back to 0
             i < 3 ? i++ : i = 0;
-            // Click next link CSS-Tricks, HTML5 Rocks, Linear Digressions
-            $(links[i]).trigger("click");
+            // Click next link [i=1]CSS-Tricks, [i=2]HTML5 Rocks, [i=3]Linear Digressions, [i=0] Udacity Blog
+            $(links[i]).trigger("click"); // Clicks on selected link
 
+            // Allow 2s. for links to load, then get firstArticle and URL
             setTimeout(function () {
                 console.log('timeout 2s.');
                 firstArticle = document.querySelector('.feed a');
                 articleURL = firstArticle.href;
-
                 done();
             }, 2000);
         });
@@ -174,49 +177,38 @@ $(function () {
          */
 
         it('loads Udacity Blog.', function () {
+            // These variables are defined here since this runs prior to afterEach
             let firstArticle = document.querySelector('.feed a');
             let articleURL = firstArticle.href;
 
             console.log('Select Udacity Blog');
             console.log(firstArticle);
             console.log(articleURL);
-            // $(links[1]).trigger("click"); // call CSS Tricks
             expect(articleURL).toContain('blog');
-
         });
 
 
         it('loads CSS Tricks.', function () {
-            // let firstArticle;
-            // let articleURL;
 
             console.log('Select CSS Tricks');
             console.log(firstArticle);
             console.log(articleURL);
-            // $(links[2]).trigger("click"); // call HTML5 Rocks
             expect(articleURL).toContain('css-tricks');
-
         });
 
         it('loads HTML5 Rocks', function () {
-            // let firstArticle = document.querySelector('.feed a');
-            // let articleURL = firstArticle.href;
 
             console.log('HTML5 Rocks');
             console.log(firstArticle);
             console.log(articleURL);
-            // $(links[3]).trigger("click"); // call Linear Digressions
             expect(articleURL).toContain('html5rocks');
         });
 
         it('loads Linear Digressions', function () {
-            // let firstArticle = document.querySelector('.feed a');
-            // let articleURL = firstArticle.href;
 
             console.log('Linear Digressions');
             console.log(firstArticle);
             console.log(articleURL);
-            $(links[0]).trigger("click"); // call Udacity Blog
             expect(articleURL).toContain('linear-digressions');
         });
 
